@@ -35,7 +35,7 @@
 #include "src/util/printf.h"
 #include "src/dss/dss.h"
 #include "src/util/argv.h"
-#include "src/mca/prteif/prteif.h"
+#include "src/mca/prrteif/prrteif.h"
 #include "src/pmix/pmix-internal.h"
 
 #include "src/util/show_help.h"

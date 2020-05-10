@@ -9,7 +9,7 @@
 #                         University of Stuttgart.  All rights reserved.
 # Copyright (c) 2004-2005 The Regents of the University of California.
 #                         All rights reserved.
-# Copyright (c) 2009-2014 Cisco Systems, Inc.  All rights reserved.
+# Copyright (c) 2009-2020 Cisco Systems, Inc.  All rights reserved.
 # Copyright (c) 2015      Los Alamos National Security, LLC. All rights
 #                         reserved.
 # Copyright (c) 2019      Research Organization for Information Science
@@ -71,7 +71,7 @@ EXTRA_DIST = Doxyfile
 include class/Makefile.am
 include runtime/Makefile.am
 include tools/Makefile.am
-include prted/Makefile.am
+include prrted/Makefile.am
 include mca/Makefile.am
 include dss/Makefile.am
 include sys/Makefile.am

@@ -9,7 +9,7 @@
  *                         University of Stuttgart.  All rights reserved.
  * Copyright (c) 2004-2005 The Regents of the University of California.
  *                         All rights reserved.
- * Copyright (c) 2007-2017 Cisco Systems, Inc.  All rights reserved
+ * Copyright (c) 2007-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2009-2010 Oracle and/or its affiliates.  All rights reserved.
  * Copyright (c) 2011-2013 Los Alamos National Security, LLC.
  *                         All rights reserved.
@@ -84,8 +84,8 @@ bool prrte_show_resolved_nodenames = false;
 int prrte_use_hostname_alias = -1;
 int prrte_hostname_cutoff = 1000;
 
-int prted_debug_failure = -1;
-int prted_debug_failure_delay = -1;
+int prrted_debug_failure = -1;
+int prrted_debug_failure_delay = -1;
 bool prrte_never_launched = false;
 bool prrte_devel_level_output = false;
 bool prrte_display_topo_with_map = false;
@@ -103,7 +103,7 @@ bool prrte_node_info_communicated = false;
 
 /* launch agents */
 char *prrte_launch_agent = NULL;
-char **prted_cmd_line=NULL;
+char **prrted_cmd_line=NULL;
 char **prrte_fork_agent=NULL;
 
 /* exit flags */
@@ -111,7 +111,7 @@ int prrte_exit_status = 0;
 bool prrte_abnormal_term_ordered = false;
 bool prrte_routing_is_enabled = true;
 bool prrte_job_term_ordered = false;
-bool prrte_prteds_term_ordered = false;
+bool prrte_prrteds_term_ordered = false;
 bool prrte_allowed_exit_without_sync = false;
 
 int prrte_startup_timeout = -1;

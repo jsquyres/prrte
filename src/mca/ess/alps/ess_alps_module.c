@@ -9,7 +9,7 @@
  *                         University of Stuttgart.  All rights reserved.
  * Copyright (c) 2004-2005 The Regents of the University of California.
  *                         All rights reserved.
- * Copyright (c) 2011      Cisco Systems, Inc.  All rights reserved.
+ * Copyright (c) 2011-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2011-2013 Los Alamos National Security, LLC.
  *                         All rights reserved.
  * Copyright (c) 2017-2020 Intel, Inc.  All rights reserved.
@@ -75,9 +75,9 @@ static int rte_init(int argc, char **argv)
         goto fn_fail;
     }
 
-    if (PRRTE_SUCCESS != (ret = prrte_ess_base_prted_setup())) {
+    if (PRRTE_SUCCESS != (ret = prrte_ess_base_prrted_setup())) {
         PRRTE_ERROR_LOG(ret);
-        error = "prrte_ess_base_prted_setup";
+        error = "prrte_ess_base_prrted_setup";
         goto fn_fail;
     }
 
@@ -105,7 +105,7 @@ static int rte_finalize(void)
 {
     int ret = PRRTE_SUCCESS;
 
-    if (PRRTE_SUCCESS != (ret = prrte_ess_base_prted_finalize())) {
+    if (PRRTE_SUCCESS != (ret = prrte_ess_base_prrted_finalize())) {
         PRRTE_ERROR_LOG(ret);
         goto fn_exit;
     }

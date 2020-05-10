@@ -11,7 +11,7 @@
  *                         All rights reserved.
  * Copyright (c) 2006-2017 Los Alamos National Security, LLC.
  *                         All rights reserved.
- * Copyright (c) 2009-2018 Cisco Systems, Inc.  All rights reserved
+ * Copyright (c) 2009-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2011-2017 Oak Ridge National Labs.  All rights reserved.
  * Copyright (c) 2017      UT-Battelle, LLC. All rights reserved.
  * Copyright (c) 2013-2020 Intel, Inc.  All rights reserved.
@@ -113,7 +113,7 @@ static prrte_cmd_line_init_t cmd_line_init[] = {
     { '\0', "mca", 2, PRRTE_CMD_LINE_TYPE_STRING,
       "Pass context-specific MCA parameters; they are considered global if --gmca is not used and only one context is specified (arg0 is the parameter name; arg1 is the parameter value)",
       PRRTE_CMD_LINE_OTYPE_LAUNCH },
-    { '\0', "prtemca", 2, PRRTE_CMD_LINE_TYPE_STRING,
+    { '\0', "prrtemca", 2, PRRTE_CMD_LINE_TYPE_STRING,
       "Pass context-specific PRRTE MCA parameters; they are considered global if --gmca is not used and only one context is specified (arg0 is the parameter name; arg1 is the parameter value)",
       PRRTE_CMD_LINE_OTYPE_LAUNCH },
 
@@ -148,21 +148,21 @@ static prrte_cmd_line_init_t cmd_line_init[] = {
 
 static char *frameworks[] = {
     "backtrace",
-    "prtecompress",
-    "prtedl",
+    "prrtecompress",
+    "prrtedl",
     "errmgr",
     "ess",
     "filem",
     "grpcomm",
-    "prteif",
-    "prteinstalldirs",
+    "prrteif",
+    "prrteinstalldirs",
     "iof",
     "odls",
     "oob",
     "plm",
     "pstat",
     "ras",
-    "prtereachable",
+    "prrtereachable",
     "rmaps",
     "rml",
     "routed",
@@ -230,7 +230,7 @@ static int parse_cli(int argc, int start, char **argv,
 
     for (i = 0; i < (argc-start); ++i) {
         ignore = true;
-        if (0 == strcmp("--prtemca", argv[i])) {
+        if (0 == strcmp("--prrtemca", argv[i])) {
             if (NULL == argv[i+1] || NULL == argv[i+2]) {
                 /* this is an error */
                 return PRRTE_ERR_FATAL;
@@ -245,7 +245,7 @@ static int parse_cli(int argc, int start, char **argv,
                                      PRRTE_NAME_PRINT(PRRTE_PROC_MY_NAME), param);
                 prrte_setenv(param, p2, true, &environ);
             } else {
-                prrte_argv_append_nosize(target, "--prtemca");
+                prrte_argv_append_nosize(target, "--prrtemca");
                 prrte_argv_append_nosize(target, p1);
                 prrte_argv_append_nosize(target, p2);
             }
@@ -280,7 +280,7 @@ static int parse_cli(int argc, int start, char **argv,
                                          PRRTE_NAME_PRINT(PRRTE_PROC_MY_NAME), param);
                     prrte_setenv(param, p2, true, &environ);
                 } else {
-                    prrte_argv_append_nosize(target, "--prtemca");
+                    prrte_argv_append_nosize(target, "--prrtemca");
                     prrte_argv_append_nosize(target, p1);
                     prrte_argv_append_nosize(target, p2);
                 }
@@ -402,7 +402,7 @@ static int parse_env(prrte_cmd_line_t *cmd_line,
                 prrte_output_verbose(1, prrte_schizo_base_framework.framework_output,
                                      "%s schizo:prrte:parse_env adding %s %s to cmd line",
                                      PRRTE_NAME_PRINT(PRRTE_PROC_MY_NAME), p1, value);
-                prrte_argv_append_nosize(dstenv, "--prtemca");
+                prrte_argv_append_nosize(dstenv, "--prrtemca");
                 prrte_argv_append_nosize(dstenv, p1);
                 prrte_argv_append_nosize(dstenv, value);
             } else {
@@ -608,7 +608,7 @@ static void wrap_args(char **args)
     char *tstr;
 
     for (i=0; NULL != args && NULL != args[i]; i++) {
-        if (0 == strcmp(args[i], "--prtemca")) {
+        if (0 == strcmp(args[i], "--prrtemca")) {
             if (NULL == args[i+1] || NULL == args[i+2]) {
                 /* this should be impossible as the error would
                  * have been detected well before here, but just
@@ -702,7 +702,7 @@ static void parse_proxy_cli(prrte_cmd_line_t *cmd_line,
             }
             *value = '\0';
             value++;
-            prrte_argv_append_nosize(argv, "--prtemca");
+            prrte_argv_append_nosize(argv, "--prrtemca");
             prrte_argv_append_nosize(argv, ptr);
             prrte_argv_append_nosize(argv, value);
             free(param);

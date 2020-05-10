@@ -33,7 +33,7 @@
 
 #include "src/dss/dss.h"
 
-#include "src/mca/prtecompress/prtecompress.h"
+#include "src/mca/prrtecompress/prrtecompress.h"
 #include "src/util/proc_info.h"
 #include "src/util/error_strings.h"
 #include "src/mca/errmgr/errmgr.h"

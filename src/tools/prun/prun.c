@@ -10,7 +10,7 @@
  *                         University of Stuttgart.  All rights reserved.
  * Copyright (c) 2004-2005 The Regents of the University of California.
  *                         All rights reserved.
- * Copyright (c) 2006-2017 Cisco Systems, Inc.  All rights reserved
+ * Copyright (c) 2006-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2007-2009 Sun Microsystems, Inc. All rights reserved.
  * Copyright (c) 2007-2017 Los Alamos National Security, LLC.  All rights
  *                         reserved.
@@ -63,7 +63,7 @@
 #endif
 
 #include "src/event/event-internal.h"
-#include "src/mca/prteinstalldirs/prteinstalldirs.h"
+#include "src/mca/prrteinstalldirs/prrteinstalldirs.h"
 #include "src/pmix/pmix-internal.h"
 #include "src/mca/base/base.h"
 #include "src/util/argv.h"
@@ -908,7 +908,7 @@ int prun(int argc, char *argv[])
     prrte_list_append(&tinfo, &ds->super);
 
     /* set our session directory to something hopefully unique so
-     * our rendezvous files don't conflict with other prun/prte
+     * our rendezvous files don't conflict with other prun/prrte
      * instances */
     ds = PRRTE_NEW(prrte_ds_info_t);
     PMIX_INFO_CREATE(ds->info, 1);
@@ -1095,7 +1095,7 @@ int prun(int argc, char *argv[])
         ptr = pval->data.string;
     }
     if (NULL != param && NULL != ptr) {
-        prrte_show_help("help-prted.txt", "both-file-and-dir-set", true,
+        prrte_show_help("help-prrted.txt", "both-file-and-dir-set", true,
                         param, ptr);
         return PRRTE_ERR_FATAL;
     } else if (NULL != param) {

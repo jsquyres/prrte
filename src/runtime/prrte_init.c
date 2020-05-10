@@ -12,7 +12,7 @@
  *                         All rights reserved.
  * Copyright (c) 2006-2018 Los Alamos National Security, LLC.  All rights
  *                         reserved.
- * Copyright (c) 2007-2012 Cisco Systems, Inc.  All rights reserved.
+ * Copyright (c) 2007-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2007-2008 Sun Microsystems, Inc.  All rights reserved.
  * Copyright (c) 2014-2020 Intel, Inc.  All rights reserved.
  * Copyright (c) 2014-2016 Research Organization for Information Science
@@ -50,19 +50,19 @@
 #include "src/util/sys_limits.h"
 
 #include "src/hwloc/hwloc-internal.h"
-#include "src/prted/pmix/pmix_server.h"
+#include "src/prrted/pmix/pmix_server.h"
 #include "src/threads/threads.h"
 
-#include "src/mca/prtebacktrace/base/base.h"
-#include "src/mca/prtecompress/base/base.h"
+#include "src/mca/prrtebacktrace/base/base.h"
+#include "src/mca/prrtecompress/base/base.h"
 #include "src/mca/base/base.h"
 #include "src/mca/ess/base/base.h"
 #include "src/mca/ess/ess.h"
 #include "src/mca/errmgr/base/base.h"
 #include "src/mca/filem/base/base.h"
 #include "src/mca/grpcomm/base/base.h"
-#include "src/mca/prteif/base/base.h"
-#include "src/mca/prteinstalldirs/base/base.h"
+#include "src/mca/prrteif/base/base.h"
+#include "src/mca/prrteinstalldirs/base/base.h"
 #include "src/mca/iof/base/base.h"
 #include "src/mca/odls/base/base.h"
 #include "src/mca/oob/base/base.h"
@@ -132,8 +132,8 @@ int prrte_init_util(prrte_proc_type_t flags)
     prrte_output_init();
 
     /* initialize install dirs code */
-    if (PRRTE_SUCCESS != (ret = prrte_mca_base_framework_open(&prrte_prteinstalldirs_base_framework, 0))) {
-        fprintf(stderr, "prrte_prteinstalldirs_base_open() failed -- process will likely abort (%s:%d, returned %d instead of PRRTE_SUCCESS)\n",
+    if (PRRTE_SUCCESS != (ret = prrte_mca_base_framework_open(&prrte_prrteinstalldirs_base_framework, 0))) {
+        fprintf(stderr, "prrte_prrteinstalldirs_base_open() failed -- process will likely abort (%s:%d, returned %d instead of PRRTE_SUCCESS)\n",
                 __FILE__, __LINE__, ret);
         return ret;
     }
@@ -205,8 +205,8 @@ int prrte_init_util(prrte_proc_type_t flags)
     }
 
     /* initialize if framework */
-    if (PRRTE_SUCCESS != (ret = prrte_mca_base_framework_open(&prrte_prteif_base_framework, 0))) {
-        fprintf(stderr, "prrte_prteif_base_open() failed -- process will likely abort (%s:%d, returned %d instead of PRRTE_SUCCESS)\n",
+    if (PRRTE_SUCCESS != (ret = prrte_mca_base_framework_open(&prrte_prrteif_base_framework, 0))) {
+        fprintf(stderr, "prrte_prrteif_base_open() failed -- process will likely abort (%s:%d, returned %d instead of PRRTE_SUCCESS)\n",
                 __FILE__, __LINE__, ret);
         return ret;
     }
@@ -216,7 +216,7 @@ int prrte_init_util(prrte_proc_type_t flags)
     /* open hwloc */
     prrte_hwloc_base_open();
 
-    if (PRRTE_SUCCESS != (ret = prrte_mca_base_framework_open(&prrte_prtebacktrace_base_framework, 0))) {
+    if (PRRTE_SUCCESS != (ret = prrte_mca_base_framework_open(&prrte_prrtebacktrace_base_framework, 0))) {
         error = "prrte_backtrace_base_open";
         goto error;
     }

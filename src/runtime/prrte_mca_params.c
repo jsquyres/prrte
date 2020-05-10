@@ -9,7 +9,7 @@
  *                         University of Stuttgart.  All rights reserved.
  * Copyright (c) 2004-2005 The Regents of the University of California.
  *                         All rights reserved.
- * Copyright (c) 2007-2011 Cisco Systems, Inc.  All rights reserved.
+ * Copyright (c) 2007-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2009-2010 Oracle and/or its affiliates.  All rights reserved.
  * Copyright (c) 2012-2013 Los Alamos National Security, LLC.
  *                         All rights reserved
@@ -35,7 +35,7 @@
 #include <stdio.h>
 
 #include "src/mca/base/prrte_mca_base_var.h"
-#include "src/mca/prteinstalldirs/prteinstalldirs.h"
+#include "src/mca/prrteinstalldirs/prrteinstalldirs.h"
 #include "src/util/output.h"
 #include "src/util/argv.h"
 #include "src/util/printf.h"
@@ -403,19 +403,19 @@ int prrte_register_params(void)
                                   prrte_progress_thread_debug_level);
     }
 
-    prted_debug_failure = PRRTE_VPID_INVALID;
+    prrted_debug_failure = PRRTE_VPID_INVALID;
     (void) prrte_mca_base_var_register ("prrte", "prrte", NULL, "daemon_fail",
-                                  "Have the specified prted fail after init for debugging purposes",
+                                  "Have the specified prrted fail after init for debugging purposes",
                                   PRRTE_MCA_BASE_VAR_TYPE_INT, NULL, 0, 0,
                                   PRRTE_INFO_LVL_9, PRRTE_MCA_BASE_VAR_SCOPE_READONLY,
-                                  &prted_debug_failure);
+                                  &prrted_debug_failure);
 
-    prted_debug_failure_delay = 0;
+    prrted_debug_failure_delay = 0;
     (void) prrte_mca_base_var_register ("prrte", "prrte", NULL, "daemon_fail_delay",
-                                  "Have the specified prted fail after specified number of seconds (default: 0 => no delay)",
+                                  "Have the specified prrted fail after specified number of seconds (default: 0 => no delay)",
                                   PRRTE_MCA_BASE_VAR_TYPE_INT, NULL, 0, 0,
                                   PRRTE_INFO_LVL_9, PRRTE_MCA_BASE_VAR_SCOPE_READONLY,
-                                  &prted_debug_failure_delay);
+                                  &prrted_debug_failure_delay);
 
     prrte_startup_timeout = 0;
     (void) prrte_mca_base_var_register ("prrte", "prrte", NULL, "startup_timeout",
@@ -534,9 +534,9 @@ int prrte_register_params(void)
                                   &prrte_show_resolved_nodenames);
 
     /* allow specification of the launch agent */
-    prrte_launch_agent = "prted";
+    prrte_launch_agent = "prrted";
     (void) prrte_mca_base_var_register ("prrte", "prrte", NULL, "launch_agent",
-                                  "Command used to start processes on remote nodes (default: prted)",
+                                  "Command used to start processes on remote nodes (default: prrted)",
                                   PRRTE_MCA_BASE_VAR_TYPE_STRING, NULL, 0, 0,
                                   PRRTE_INFO_LVL_9, PRRTE_MCA_BASE_VAR_SCOPE_READONLY,
                                   &prrte_launch_agent);

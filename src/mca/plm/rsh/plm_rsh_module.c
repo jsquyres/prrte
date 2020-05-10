@@ -64,7 +64,7 @@
 #include <pwd.h>
 #endif
 
-#include "src/mca/prteinstalldirs/prteinstalldirs.h"
+#include "src/mca/prrteinstalldirs/prrteinstalldirs.h"
 #include "src/util/output.h"
 #include "src/mca/base/base.h"
 #include "src/event/event-internal.h"
@@ -103,7 +103,7 @@
 static int rsh_init(void);
 static int rsh_launch(prrte_job_t *jdata);
 static int remote_spawn(void);
-static int rsh_terminate_prteds(void);
+static int rsh_terminate_prrteds(void);
 static int rsh_finalize(void);
 
 prrte_plm_base_module_t prrte_plm_rsh_module = {
@@ -111,10 +111,10 @@ prrte_plm_base_module_t prrte_plm_rsh_module = {
     prrte_plm_base_set_hnp_name,
     rsh_launch,
     remote_spawn,
-    prrte_plm_base_prted_terminate_job,
-    rsh_terminate_prteds,
-    prrte_plm_base_prted_kill_local_procs,
-    prrte_plm_base_prted_signal_local_procs,
+    prrte_plm_base_prrted_terminate_job,
+    rsh_terminate_prrteds,
+    prrte_plm_base_prrted_kill_local_procs,
+    prrte_plm_base_prrted_signal_local_procs,
     rsh_finalize
 };
 
@@ -268,7 +268,7 @@ static void rsh_wait_daemon(int sd, short flags, void *cbdata)
     prrte_plm_rsh_caddy_t *caddy=(prrte_plm_rsh_caddy_t*)t2->cbdata;
     prrte_proc_t *daemon = caddy->daemon;
 
-    if (prrte_prteds_term_ordered || prrte_abnormal_term_ordered) {
+    if (prrte_prrteds_term_ordered || prrte_abnormal_term_ordered) {
         /* ignore any such report - it will occur if we left the
          * session attached, e.g., while debugging
          */
@@ -408,7 +408,7 @@ static int setup_launch(int *argcptr, char ***argvptr,
      */
     orted_argc = 0;
     orted_argv = NULL;
-    orted_index = prrte_plm_base_setup_prted_cmd(&orted_argc, &orted_argv);
+    orted_index = prrte_plm_base_setup_prrted_cmd(&orted_argc, &orted_argv);
 
     /* look at the returned orted cmd argv to check several cases:
      *
@@ -475,7 +475,7 @@ static int setup_launch(int *argcptr, char ***argvptr,
         free(value);
 
         if (NULL != orted_cmd) {
-            if (0 == strcmp(orted_cmd, "prted")) {
+            if (0 == strcmp(orted_cmd, "prrted")) {
                 /* if the cmd is our standard one, then add the prefix */
                 prrte_asprintf(&full_orted_cmd, "%s/%s", bin_base, orted_cmd);
             } else {
@@ -618,12 +618,12 @@ static int setup_launch(int *argcptr, char ***argvptr,
      * Add the basic arguments to the orted command line, including
      * all debug options
      */
-    prrte_plm_base_prted_append_basic_args(&argc, &argv,
+    prrte_plm_base_prrted_append_basic_args(&argc, &argv,
                                            "env",
                                            proc_vpid_index);
 
     /* ensure that only the ssh plm is selected on the remote daemon */
-    prrte_argv_append(&argc, &argv, "--prtemca");
+    prrte_argv_append(&argc, &argv, "--prrtemca");
     prrte_argv_append(&argc, &argv, "plm");
     prrte_argv_append(&argc, &argv, "rsh");
 
@@ -632,7 +632,7 @@ static int setup_launch(int *argcptr, char ***argvptr,
     if (!prrte_plm_rsh_component.no_tree_spawn) {
         prrte_argv_append(&argc, &argv, "--tree-spawn");
         prrte_oob_base_get_addr(&param);
-        prrte_argv_append(&argc, &argv, "--prtemca");
+        prrte_argv_append(&argc, &argv, "--prrtemca");
         prrte_argv_append(&argc, &argv, "prrte_parent_uri");
         prrte_argv_append(&argc, &argv, param);
         free(param);
@@ -1287,11 +1287,11 @@ static void launch_daemons(int fd, short args, void *cbdata)
 /**
  * Terminate the orteds for a given job
  */
-static int rsh_terminate_prteds(void)
+static int rsh_terminate_prrteds(void)
 {
     int rc;
 
-    if (PRRTE_SUCCESS != (rc = prrte_plm_base_prted_exit(PRRTE_DAEMON_EXIT_CMD))) {
+    if (PRRTE_SUCCESS != (rc = prrte_plm_base_prrted_exit(PRRTE_DAEMON_EXIT_CMD))) {
         PRRTE_ERROR_LOG(rc);
     }
 

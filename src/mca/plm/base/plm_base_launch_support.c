@@ -44,7 +44,7 @@
 #include "src/dss/dss.h"
 #include "src/hwloc/hwloc-internal.h"
 #include "src/pmix/pmix-internal.h"
-#include "src/mca/prtecompress/prtecompress.h"
+#include "src/mca/prrtecompress/prrtecompress.h"
 
 #include "src/util/dash_host/dash_host.h"
 #include "src/util/nidmap.h"
@@ -975,7 +975,7 @@ void prrte_plm_base_registered(int fd, short args, void *cbdata)
 }
 
 /* daemons callback when they start - need to listen for them */
-static bool prted_failed_launch;
+static bool prrted_failed_launch;
 static prrte_job_t *jdatorted=NULL;
 
 /* callback for topology reports */
@@ -1009,7 +1009,7 @@ void prrte_plm_base_daemon_topology(int status, prrte_process_name_t* sender,
     }
     if (NULL == (daemon = (prrte_proc_t*)prrte_pointer_array_get_item(jdatorted->procs, sender->vpid))) {
         PRRTE_ERROR_LOG(PRRTE_ERR_NOT_FOUND);
-        prted_failed_launch = true;
+        prrted_failed_launch = true;
         goto CLEANUP;
     }
     PRRTE_CONSTRUCT(&datbuf, prrte_buffer_t);
@@ -1017,7 +1017,7 @@ void prrte_plm_base_daemon_topology(int status, prrte_process_name_t* sender,
     idx=1;
     if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(buffer, &flag, &idx, PRRTE_INT8))) {
         PRRTE_ERROR_LOG(rc);
-        prted_failed_launch = true;
+        prrted_failed_launch = true;
         goto CLEANUP;
     }
     if (flag) {
@@ -1025,14 +1025,14 @@ void prrte_plm_base_daemon_topology(int status, prrte_process_name_t* sender,
         idx=1;
         if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(buffer, &inlen, &idx, PRRTE_SIZE))) {
             PRRTE_ERROR_LOG(rc);
-            prted_failed_launch = true;
+            prrted_failed_launch = true;
             goto CLEANUP;
         }
         /* unpack the unpacked data size */
         idx=1;
         if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(buffer, &cmplen, &idx, PRRTE_SIZE))) {
             PRRTE_ERROR_LOG(rc);
-            prted_failed_launch = true;
+            prrted_failed_launch = true;
             goto CLEANUP;
         }
         /* allocate the space */
@@ -1041,7 +1041,7 @@ void prrte_plm_base_daemon_topology(int status, prrte_process_name_t* sender,
         idx = inlen;
         if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(buffer, packed_data, &idx, PRRTE_UINT8))) {
             PRRTE_ERROR_LOG(rc);
-            prted_failed_launch = true;
+            prrted_failed_launch = true;
             goto CLEANUP;
         }
         /* decompress the data */
@@ -1062,7 +1062,7 @@ void prrte_plm_base_daemon_topology(int status, prrte_process_name_t* sender,
     idx=1;
     if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(data, &sig, &idx, PRRTE_STRING))) {
         PRRTE_ERROR_LOG(rc);
-        prted_failed_launch = true;
+        prrted_failed_launch = true;
         goto CLEANUP;
     }
     /* find it in the array */
@@ -1080,7 +1080,7 @@ void prrte_plm_base_daemon_topology(int status, prrte_process_name_t* sender,
     if (NULL == t) {
         /* should never happen */
         PRRTE_ERROR_LOG(PRRTE_ERR_NOT_FOUND);
-        prted_failed_launch = true;
+        prrted_failed_launch = true;
         goto CLEANUP;
     }
 
@@ -1088,7 +1088,7 @@ void prrte_plm_base_daemon_topology(int status, prrte_process_name_t* sender,
     idx=1;
     if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(data, &topo, &idx, PRRTE_HWLOC_TOPO))) {
         PRRTE_ERROR_LOG(rc);
-        prted_failed_launch = true;
+        prrted_failed_launch = true;
         goto CLEANUP;
     }
     /* record the final topology */
@@ -1109,7 +1109,7 @@ void prrte_plm_base_daemon_topology(int status, prrte_process_name_t* sender,
     idx=1;
     if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(data, &coprocessors, &idx, PRRTE_STRING))) {
         PRRTE_ERROR_LOG(rc);
-        prted_failed_launch = true;
+        prrted_failed_launch = true;
         goto CLEANUP;
     }
     if (NULL != coprocessors) {
@@ -1136,7 +1136,7 @@ void prrte_plm_base_daemon_topology(int status, prrte_process_name_t* sender,
     idx=1;
     if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(data, &coprocessors, &idx, PRRTE_STRING))) {
         PRRTE_ERROR_LOG(rc);
-        prted_failed_launch = true;
+        prrted_failed_launch = true;
         goto CLEANUP;
     }
     if (NULL != coprocessors) {
@@ -1145,7 +1145,7 @@ void prrte_plm_base_daemon_topology(int status, prrte_process_name_t* sender,
              * to another coprocessor at this time
              */
             PRRTE_ERROR_LOG(PRRTE_ERR_NOT_SUPPORTED);
-            prted_failed_launch = true;
+            prrted_failed_launch = true;
             free(coprocessors);
             goto CLEANUP;
         }
@@ -1158,10 +1158,10 @@ void prrte_plm_base_daemon_topology(int status, prrte_process_name_t* sender,
     PRRTE_OUTPUT_VERBOSE((5, prrte_plm_base_framework.framework_output,
                          "%s plm:base:orted:report_topo launch %s for daemon %s",
                          PRRTE_NAME_PRINT(PRRTE_PROC_MY_NAME),
-                         prted_failed_launch ? "failed" : "completed",
+                         prrted_failed_launch ? "failed" : "completed",
                          PRRTE_NAME_PRINT(sender)));
 
-    if (prted_failed_launch) {
+    if (prrted_failed_launch) {
         PRRTE_ACTIVATE_JOB_STATE(jdatorted, PRRTE_JOB_STATE_FAILED_TO_START);
         return;
     } else {
@@ -1258,7 +1258,7 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
         /* update state and record for this daemon contact info */
         if (NULL == (daemon = (prrte_proc_t*)prrte_pointer_array_get_item(jdatorted->procs, dname.vpid))) {
             PRRTE_ERROR_LOG(PRRTE_ERR_NOT_FOUND);
-            prted_failed_launch = true;
+            prrted_failed_launch = true;
             goto CLEANUP;
         }
         daemon->state = PRRTE_PROC_STATE_RUNNING;
@@ -1269,7 +1269,7 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
         idx = 1;
         if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(buffer, &flag, &idx, PRRTE_INT32))) {
             PRRTE_ERROR_LOG(rc);
-            prted_failed_launch = true;
+            prrted_failed_launch = true;
             goto CLEANUP;
         }
 
@@ -1278,7 +1278,7 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
             idx = 1;
             if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(buffer, &bptr, &idx, PRRTE_BYTE_OBJECT))) {
                 PRRTE_ERROR_LOG(rc);
-                prted_failed_launch = true;
+                prrted_failed_launch = true;
                 goto CLEANUP;
             }
             /* load the bytes into a PMIx data buffer for unpacking */
@@ -1294,7 +1294,7 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
                 PMIX_ERROR_LOG(ret);
                 PMIX_DATA_BUFFER_DESTRUCT(&pbuf);
                 rc = PRRTE_ERROR;
-                prted_failed_launch = true;
+                prrted_failed_launch = true;
                 goto CLEANUP;
             }
             PMIX_INFO_CREATE(info, ninfo);
@@ -1305,7 +1305,7 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
                 PMIX_INFO_FREE(info, ninfo);
                 PMIX_DATA_BUFFER_DESTRUCT(&pbuf);
                 rc = PRRTE_ERROR;
-                prted_failed_launch = true;
+                prrted_failed_launch = true;
                 goto CLEANUP;
             }
             PMIX_DATA_BUFFER_DESTRUCT(&pbuf);
@@ -1316,7 +1316,7 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
                     PMIX_ERROR_LOG(ret);
                     PMIX_INFO_FREE(info, ninfo);
                     rc = PRRTE_ERROR;
-                    prted_failed_launch = true;
+                    prrted_failed_launch = true;
                     goto CLEANUP;
                 }
             }
@@ -1327,7 +1327,7 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
         idx = 1;
         if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(buffer, &nodename, &idx, PRRTE_STRING))) {
             PRRTE_ERROR_LOG(rc);
-            prted_failed_launch = true;
+            prrted_failed_launch = true;
             goto CLEANUP;
         }
         if (!prrte_have_fqdn_allocation) {
@@ -1361,14 +1361,14 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
         idx = 1;
         if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(buffer, &naliases, &idx, PRRTE_UINT8))) {
             PRRTE_ERROR_LOG(rc);
-            prted_failed_launch = true;
+            prrted_failed_launch = true;
             goto CLEANUP;
         }
         for (ni=0; ni < naliases; ni++) {
             idx = 1;
             if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(buffer, &alias, &idx, PRRTE_STRING))) {
                 PRRTE_ERROR_LOG(rc);
-                prted_failed_launch = true;
+                prrted_failed_launch = true;
                 goto CLEANUP;
             }
             prrte_argv_append_nosize(&atmp, alias);
@@ -1385,7 +1385,7 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
         idx=1;
         if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(buffer, &sig, &idx, PRRTE_STRING))) {
             PRRTE_ERROR_LOG(rc);
-            prted_failed_launch = true;
+            prrted_failed_launch = true;
             goto CLEANUP;
         }
         PRRTE_OUTPUT_VERBOSE((5, prrte_plm_base_framework.framework_output,
@@ -1404,7 +1404,7 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
             idx=1;
             if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(buffer, &flag, &idx, PRRTE_INT8))) {
                 PRRTE_ERROR_LOG(rc);
-                prted_failed_launch = true;
+                prrted_failed_launch = true;
                 goto CLEANUP;
             }
             if (flag) {
@@ -1412,14 +1412,14 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
                 idx=1;
                 if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(buffer, &inlen, &idx, PRRTE_SIZE))) {
                     PRRTE_ERROR_LOG(rc);
-                    prted_failed_launch = true;
+                    prrted_failed_launch = true;
                     goto CLEANUP;
                 }
                 /* unpack the unpacked data size */
                 idx=1;
                 if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(buffer, &cmplen, &idx, PRRTE_SIZE))) {
                     PRRTE_ERROR_LOG(rc);
-                    prted_failed_launch = true;
+                    prrted_failed_launch = true;
                     goto CLEANUP;
                 }
                 /* allocate the space */
@@ -1428,7 +1428,7 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
                 idx = inlen;
                 if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(buffer, packed_data, &idx, PRRTE_UINT8))) {
                     PRRTE_ERROR_LOG(rc);
-                    prted_failed_launch = true;
+                    prrted_failed_launch = true;
                     goto CLEANUP;
                 }
                 /* decompress the data */
@@ -1448,7 +1448,7 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
             idx=1;
             if (PRRTE_SUCCESS != (rc = prrte_dss.unpack(data, &topo, &idx, PRRTE_HWLOC_TOPO))) {
                 PRRTE_ERROR_LOG(rc);
-                prted_failed_launch = true;
+                prrted_failed_launch = true;
                 goto CLEANUP;
             }
         }
@@ -1470,7 +1470,7 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
                     PMIX_ERROR_LOG(ret);
                     PMIX_DATA_BUFFER_DESTRUCT(&pbuf);
                     rc = PRRTE_ERROR;
-                    prted_failed_launch = true;
+                    prrted_failed_launch = true;
                     goto CLEANUP;
                 }
                 PMIX_INFO_CREATE(info, ninfo);
@@ -1481,7 +1481,7 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
                     PMIX_INFO_FREE(info, ninfo);
                     PMIX_DATA_BUFFER_DESTRUCT(&pbuf);
                     rc = PRRTE_ERROR;
-                    prted_failed_launch = true;
+                    prrted_failed_launch = true;
                     goto CLEANUP;
                 }
                 PMIX_DATA_BUFFER_DESTRUCT(&pbuf);
@@ -1491,7 +1491,7 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
                     PMIX_ERROR_LOG(ret);
                     PMIX_INFO_FREE(info, ninfo);
                     rc = PRRTE_ERROR;
-                    prted_failed_launch = true;
+                    prrted_failed_launch = true;
                     goto CLEANUP;
                 }
                 PRRTE_PMIX_WAIT_THREAD(&lock);
@@ -1543,7 +1543,7 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
                 if (PRRTE_SUCCESS != (rc = prrte_dss.pack(relay, &cmd, 1, PRRTE_DAEMON_CMD))) {
                     PRRTE_ERROR_LOG(rc);
                     PRRTE_RELEASE(relay);
-                    prted_failed_launch = true;
+                    prrted_failed_launch = true;
                     goto CLEANUP;
                 }
                 /* send it */
@@ -1565,7 +1565,7 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
         PRRTE_OUTPUT_VERBOSE((5, prrte_plm_base_framework.framework_output,
                              "%s plm:base:orted_report_launch %s for daemon %s at contact %s",
                              PRRTE_NAME_PRINT(PRRTE_PROC_MY_NAME),
-                             prted_failed_launch ? "failed" : "completed",
+                             prrted_failed_launch ? "failed" : "completed",
                              PRRTE_NAME_PRINT(&dname),
                              (NULL == daemon) ? "UNKNOWN" : daemon->rml_uri));
 
@@ -1574,7 +1574,7 @@ void prrte_plm_base_daemon_callback(int status, prrte_process_name_t* sender,
             nodename = NULL;
         }
 
-        if (prted_failed_launch) {
+        if (prrted_failed_launch) {
             PRRTE_ACTIVATE_JOB_STATE(jdatorted, PRRTE_JOB_STATE_FAILED_TO_START);
             return;
         } else {
@@ -1666,7 +1666,7 @@ void prrte_plm_base_daemon_failed(int st, prrte_process_name_t* sender,
     PRRTE_ACTIVATE_PROC_STATE(&daemon->name, PRRTE_PROC_STATE_FAILED_TO_START);
 }
 
-int prrte_plm_base_setup_prted_cmd(int *argc, char ***argv)
+int prrte_plm_base_setup_prrted_cmd(int *argc, char ***argv)
 {
     int i, loc;
     char **tmpv;
@@ -1678,7 +1678,7 @@ int prrte_plm_base_setup_prted_cmd(int *argc, char ***argv)
     /* split the command apart in case it is multi-word */
     tmpv = prrte_argv_split(prrte_launch_agent, ' ');
     for (i = 0; NULL != tmpv && NULL != tmpv[i]; ++i) {
-        if (0 == strcmp(tmpv[i], "prted")) {
+        if (0 == strcmp(tmpv[i], "prrted")) {
             loc = i;
         }
         prrte_argv_append(argc, argv, tmpv[i]);
@@ -1692,7 +1692,7 @@ int prrte_plm_base_setup_prted_cmd(int *argc, char ***argv)
 /* pass all options as MCA params so anything we pickup
  * from the environment can be checked for duplicates
  */
-int prrte_plm_base_prted_append_basic_args(int *argc, char ***argv,
+int prrte_plm_base_prrted_append_basic_args(int *argc, char ***argv,
                                           char *ess,
                                           int *proc_vpid_index)
 {
@@ -1717,12 +1717,12 @@ int prrte_plm_base_prted_append_basic_args(int *argc, char ***argv,
     }
 
     if (prrte_map_stddiag_to_stderr) {
-        prrte_argv_append(argc, argv, "--prtemca");
+        prrte_argv_append(argc, argv, "--prrtemca");
         prrte_argv_append(argc, argv, "prrte_map_stddiag_to_stderr");
         prrte_argv_append(argc, argv, "1");
     }
     else if (prrte_map_stddiag_to_stdout) {
-        prrte_argv_append(argc, argv, "--prtemca");
+        prrte_argv_append(argc, argv, "--prrtemca");
         prrte_argv_append(argc, argv, "prrte_map_stddiag_to_stdout");
         prrte_argv_append(argc, argv, "1");
     }
@@ -1734,20 +1734,20 @@ int prrte_plm_base_prted_append_basic_args(int *argc, char ***argv,
 
     /* tell the orted what ESS component to use */
     if (NULL != ess) {
-        prrte_argv_append(argc, argv, "--prtemca");
+        prrte_argv_append(argc, argv, "--prrtemca");
         prrte_argv_append(argc, argv, "ess");
         prrte_argv_append(argc, argv, ess);
     }
 
     /* pass the daemon nspace */
-    prrte_argv_append(argc, argv, "--prtemca");
+    prrte_argv_append(argc, argv, "--prrtemca");
     prrte_argv_append(argc, argv, "ess_base_nspace");
     prrte_argv_append(argc, argv, prrte_process_info.myproc.nspace);
     free(param);
 
     /* setup to pass the vpid */
     if (NULL != proc_vpid_index) {
-        prrte_argv_append(argc, argv, "--prtemca");
+        prrte_argv_append(argc, argv, "--prrtemca");
         prrte_argv_append(argc, argv, "ess_base_vpid");
         *proc_vpid_index = *argc;
         prrte_argv_append(argc, argv, "<template>");
@@ -1760,20 +1760,20 @@ int prrte_plm_base_prted_append_basic_args(int *argc, char ***argv,
     } else {
         num_procs = prrte_process_info.num_daemons;
     }
-    prrte_argv_append(argc, argv, "--prtemca");
+    prrte_argv_append(argc, argv, "--prrtemca");
     prrte_argv_append(argc, argv, "ess_base_num_procs");
     prrte_asprintf(&param, "%lu", num_procs);
     prrte_argv_append(argc, argv, param);
     free(param);
 
     /* pass the HNP uri */
-    prrte_argv_append(argc, argv, "--prtemca");
+    prrte_argv_append(argc, argv, "--prrtemca");
     prrte_argv_append(argc, argv, "prrte_hnp_uri");
     prrte_argv_append(argc, argv, prrte_process_info.my_hnp_uri);
 
     /* if --xterm was specified, pass that along */
     if (NULL != prrte_xterm) {
-        prrte_argv_append(argc, argv, "--prtemca");
+        prrte_argv_append(argc, argv, "--prrtemca");
         prrte_argv_append(argc, argv, "prrte_xterm");
         prrte_argv_append(argc, argv, prrte_xterm);
     }
@@ -1782,7 +1782,7 @@ int prrte_plm_base_prted_append_basic_args(int *argc, char ***argv,
      * being sure to "purge" any that would cause problems
      * on backend nodes and ignoring all duplicates
      */
-    cnt = prrte_argv_count(prted_cmd_line);
+    cnt = prrte_argv_count(prrted_cmd_line);
     for (i=0; i < cnt; i+=3) {
         /* if the specified option is more than one word, we don't
          * have a generic way of passing it as some environments ignore
@@ -1792,7 +1792,7 @@ int prrte_plm_base_prted_append_basic_args(int *argc, char ***argv,
          * Individual environments can add these back into the cmd line
          * as they know if it can be supported
          */
-        if (NULL != strchr(prted_cmd_line[i+2], ' ')) {
+        if (NULL != strchr(prrted_cmd_line[i+2], ' ')) {
             continue;
         }
         /* The daemon will attempt to open the PLM on the remote
@@ -1801,22 +1801,22 @@ int prrte_plm_base_prted_append_basic_args(int *argc, char ***argv,
          * so by giving it a specific PLM module. To ensure we avoid
          * confusion, do not include any directives here
          */
-        if (0 == strcmp(prted_cmd_line[i+1], "plm")) {
+        if (0 == strcmp(prrted_cmd_line[i+1], "plm")) {
             continue;
         }
         /* check for duplicate */
         ignore = false;
         for (j=0; j < *argc; j++) {
-            if (0 == strcmp((*argv)[j], prted_cmd_line[i+1])) {
+            if (0 == strcmp((*argv)[j], prrted_cmd_line[i+1])) {
                 ignore = true;
                 break;
             }
         }
         if (!ignore) {
             /* pass it along */
-            prrte_argv_append(argc, argv, prted_cmd_line[i]);
-            prrte_argv_append(argc, argv, prted_cmd_line[i+1]);
-            prrte_argv_append(argc, argv, prted_cmd_line[i+2]);
+            prrte_argv_append(argc, argv, prrted_cmd_line[i]);
+            prrte_argv_append(argc, argv, prrted_cmd_line[i+1]);
+            prrte_argv_append(argc, argv, prrted_cmd_line[i+2]);
         }
     }
 

@@ -13,6 +13,7 @@
 # Copyright (c) 2015-2020 Intel, Inc.  All rights reserved.
 # Copyright (c) 2019      Research Organization for Information Science
 #                         and Technology (RIST).  All rights reserved.
+# Copyright (c) 2020      Cisco Systems, Inc.  All rights reserved.
 # $COPYRIGHT$
 #
 # Additional copyrights may follow
@@ -28,5 +29,5 @@ headers += \
 libmca_ess_la_SOURCES += \
         base/ess_base_frame.c \
         base/ess_base_select.c \
-		base/ess_base_std_prted.c \
+	base/ess_base_std_prrted.c \
         base/ess_base_std_prolog.c

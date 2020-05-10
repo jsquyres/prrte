@@ -15,7 +15,7 @@
  * Copyright (c) 2008-2009 Sun Microsystems, Inc.  All rights reserved.
  * Copyright (c) 2010      Oracle and/or its affiliates.  All rights
  *                         reserved.
- * Copyright (c) 2009-2018 Cisco Systems, Inc.  All rights reserved
+ * Copyright (c) 2009-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2011-2020 IBM Corporation.  All rights reserved.
  * Copyright (c) 2015-2020 Intel, Inc.  All rights reserved.
  * Copyright (c) 2019      Research Organization for Information Science
@@ -227,7 +227,7 @@ static int rsh_component_register(void)
 
     prrte_plm_rsh_component.chdir = NULL;
     (void) prrte_mca_base_component_var_register (c, "chdir",
-                                                  "Change working directory after rsh/ssh, but before exec of prted",
+                                                  "Change working directory after rsh/ssh, but before exec of prrted",
                                                   PRRTE_MCA_BASE_VAR_TYPE_STRING, NULL, 0, 0,
                                                   PRRTE_INFO_LVL_2,
                                                   PRRTE_MCA_BASE_VAR_SCOPE_READONLY,

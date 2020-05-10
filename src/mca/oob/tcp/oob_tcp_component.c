@@ -12,7 +12,7 @@
  *                         All rights reserved.
  * Copyright (c) 2006-2017 Los Alamos National Security, LLC. All rights
  *                         reserved.
- * Copyright (c) 2009-2015 Cisco Systems, Inc.  All rights reserved.
+ * Copyright (c) 2009-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2011      Oak Ridge National Labs.  All rights reserved.
  * Copyright (c) 2013-2020 Intel, Inc.  All rights reserved.
  * Copyright (c) 2014      NVIDIA Corporation.  All rights reserved.
@@ -61,7 +61,7 @@
 #include "src/util/error.h"
 #include "src/util/output.h"
 #include "src/include/prrte_socket_errno.h"
-#include "src/mca/prteif/prteif.h"
+#include "src/mca/prrteif/prrteif.h"
 #include "src/util/net.h"
 #include "src/util/argv.h"
 #include "src/class/prrte_hash_table.h"
@@ -1199,7 +1199,7 @@ void prrte_oob_tcp_component_failed_to_connect(int fd, short args, void *cbdata)
                         PRRTE_NAME_PRINT(&pop->peer));
 
    /* if we are terminating, then don't attempt to reconnect */
-    if (prrte_prteds_term_ordered || prrte_finalizing || prrte_abnormal_term_ordered) {
+    if (prrte_prrteds_term_ordered || prrte_finalizing || prrte_abnormal_term_ordered) {
         PRRTE_RELEASE(pop);
         return;
     }

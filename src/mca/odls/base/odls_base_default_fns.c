@@ -13,7 +13,7 @@
  * Copyright (c) 2011      Oak Ridge National Labs.  All rights reserved.
  * Copyright (c) 2011-2013 Los Alamos National Security, LLC.
  *                         All rights reserved.
- * Copyright (c) 2011-2017 Cisco Systems, Inc.  All rights reserved
+ * Copyright (c) 2011-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2013-2020 Intel, Inc.  All rights reserved.
  * Copyright (c) 2014-2019 Research Organization for Information Science
  *                         and Technology (RIST).  All rights reserved.
@@ -85,8 +85,8 @@
 #include "src/threads/threads.h"
 #include "src/runtime/prrte_globals.h"
 #include "src/runtime/prrte_wait.h"
-#include "src/prted/prted.h"
-#include "src/prted/pmix/pmix_server.h"
+#include "src/prrted/prrted.h"
+#include "src/prrted/pmix/pmix_server.h"
 
 #include "src/mca/odls/base/base.h"
 #include "src/mca/odls/base/odls_private.h"

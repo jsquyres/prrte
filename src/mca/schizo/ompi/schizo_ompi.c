@@ -11,7 +11,7 @@
  *                         All rights reserved.
  * Copyright (c) 2006-2017 Los Alamos National Security, LLC.
  *                         All rights reserved.
- * Copyright (c) 2009-2018 Cisco Systems, Inc.  All rights reserved
+ * Copyright (c) 2009-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2011-2017 Oak Ridge National Labs.  All rights reserved.
  * Copyright (c) 2017      UT-Battelle, LLC. All rights reserved.
  * Copyright (c) 2013-2020 Intel, Inc.  All rights reserved.
@@ -1153,7 +1153,7 @@ static void parse_proxy_cli(prrte_cmd_line_t *cmd_line,
     /* we need to convert some legacy ORTE cmd line options to their
      * PRRTE equivalent when launching as a proxy for mpirun */
     if (NULL != (pval = prrte_cmd_line_get_param(cmd_line, "orte_tmpdir_base", 0, 0))) {
-        prrte_argv_append_nosize(argv, "--prtemca");
+        prrte_argv_append_nosize(argv, "--prrtemca");
         prrte_argv_append_nosize(argv, "prrte_tmpdir_base");
         prrte_argv_append_nosize(argv, pval->data.string);
     }

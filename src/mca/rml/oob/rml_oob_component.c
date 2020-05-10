@@ -36,7 +36,7 @@
 #include "src/mca/base/base.h"
 #include "src/util/output.h"
 #include "src/util/argv.h"
-#include "src/mca/prtebacktrace/prtebacktrace.h"
+#include "src/mca/prrtebacktrace/prrtebacktrace.h"
 #include "src/event/event-internal.h"
 
 #include "src/mca/rml/base/base.h"

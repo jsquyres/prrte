@@ -1,6 +1,6 @@
 # -*- shell-script -*-
 #
-# Copyright (c) 2009-2010 Cisco Systems, Inc.  All rights reserved.
+# Copyright (c) 2009-2020 Cisco Systems, Inc.  All rights reserved.
 # Copyright (c) 2016-2020 Intel, Inc.  All rights reserved.
 # Copyright (c) 2019      Research Organization for Information Science
 #                         and Technology (RIST).  All rights reserved.
@@ -24,10 +24,10 @@ AC_DEFUN([PRRTE_CONFIG_FILES],[
         src/util/keyval/Makefile
         src/tools/pcc/Makefile
         src/tools/pcc/pcc-wrapper-data.txt
-        src/tools/prted/Makefile
+        src/tools/prrted/Makefile
         src/tools/prun/Makefile
-        src/tools/prte_info/Makefile
-        src/tools/prte/Makefile
+        src/tools/prrte_info/Makefile
+        src/tools/prrte/Makefile
         src/tools/pterm/Makefile
     ])
 ])

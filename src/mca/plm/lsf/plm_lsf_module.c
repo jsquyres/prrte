@@ -9,7 +9,7 @@
  *                         University of Stuttgart.  All rights reserved.
  * Copyright (c) 2004-2005 The Regents of the University of California.
  *                         All rights reserved.
- * Copyright (c) 2006-2007 Cisco Systems, Inc.  All rights reserved.
+ * Copyright (c) 2006-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2007-2012 Los Alamos National Security, LLC.  All rights
  *                         reserved.
  * Copyright (c) 2008      Institut National de Recherche en Informatique
@@ -58,7 +58,7 @@
 #include <lsf/lsbatch.h>
 
 #include "src/mca/base/base.h"
-#include "src/mca/prteinstalldirs/prteinstalldirs.h"
+#include "src/mca/prrteinstalldirs/prrteinstalldirs.h"
 #include "src/util/argv.h"
 #include "src/util/output.h"
 #include "src/util/prrte_environ.h"
@@ -96,9 +96,9 @@ prrte_plm_base_module_t prrte_plm_lsf_module = {
     prrte_plm_base_set_hnp_name,
     plm_lsf_launch_job,
     NULL,
-    prrte_plm_base_prted_terminate_job,
+    prrte_plm_base_prrted_terminate_job,
     plm_lsf_terminate_orteds,
-    prrte_plm_base_prted_kill_local_procs,
+    prrte_plm_base_prrted_kill_local_procs,
     plm_lsf_signal_job,
     plm_lsf_finalize
 };
@@ -270,11 +270,11 @@ static void launch_daemons(int fd, short args, void *cbdata)
     }
 
     /* add the daemon command (as specified by user) */
-    prrte_plm_base_setup_prted_cmd(&argc, &argv);
+    prrte_plm_base_setup_prrted_cmd(&argc, &argv);
 
 
     /* Add basic orted command line options */
-    prrte_plm_base_prted_append_basic_args(&argc, &argv,
+    prrte_plm_base_prrted_append_basic_args(&argc, &argv,
                                            "lsf",
                                            &proc_vpid_index);
 
@@ -400,7 +400,7 @@ static int plm_lsf_terminate_orteds(void)
 {
     int rc;
 
-    if (PRRTE_SUCCESS != (rc = prrte_plm_base_prted_exit(PRRTE_DAEMON_EXIT_CMD))) {
+    if (PRRTE_SUCCESS != (rc = prrte_plm_base_prrted_exit(PRRTE_DAEMON_EXIT_CMD))) {
         PRRTE_ERROR_LOG(rc);
     }
 
@@ -416,7 +416,7 @@ static int plm_lsf_signal_job(prrte_jobid_t jobid, int32_t signal)
     int rc;
 
     /* order the orteds to pass this signal to their local procs */
-    if (PRRTE_SUCCESS != (rc = prrte_plm_base_prted_signal_local_procs(jobid, signal))) {
+    if (PRRTE_SUCCESS != (rc = prrte_plm_base_prrted_signal_local_procs(jobid, signal))) {
         PRRTE_ERROR_LOG(rc);
     }
     return rc;

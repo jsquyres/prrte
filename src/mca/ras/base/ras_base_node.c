@@ -14,6 +14,7 @@
  * Copyright (c) 2014-2020 Intel, Inc.  All rights reserved.
  * Copyright (c) 2015-2018 Research Organization for Information Science
  *                         and Technology (RIST). All rights reserved.
+ * Copyright (c) 2020      Cisco Systems, Inc.  All rights reserved
  * $COPYRIGHT$
  *
  * Additional copyrights may follow
@@ -99,7 +100,7 @@ int prrte_ras_base_node_insert(prrte_list_t* nodes, prrte_job_t *jdata)
                 if (NULL != hnp_node->name) {
                     free(hnp_node->name);
                 }
-                hnp_node->name = strdup("prte");
+                hnp_node->name = strdup("prrte");
                 skiphnp = true;
                 PRRTE_SET_MAPPING_DIRECTIVE(prrte_rmaps_base.mapping, PRRTE_MAPPING_NO_USE_LOCAL);
             }

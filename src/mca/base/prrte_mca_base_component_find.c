@@ -46,7 +46,7 @@
 #include <netdb.h>
 #endif
 
-#include "src/mca/prteinstalldirs/prteinstalldirs.h"
+#include "src/mca/prrteinstalldirs/prrteinstalldirs.h"
 #include "src/util/prrte_environ.h"
 #include "src/util/proc_info.h"
 #include "src/util/output.h"
@@ -57,7 +57,7 @@
 #include "src/mca/base/base.h"
 #include "src/mca/base/prrte_mca_base_component_repository.h"
 #include "constants.h"
-#include "src/mca/prtedl/base/base.h"
+#include "src/mca/prrtedl/base/base.h"
 
 #if PRRTE_HAVE_DL_SUPPORT
 /*

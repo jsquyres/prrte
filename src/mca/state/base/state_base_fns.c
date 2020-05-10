@@ -4,6 +4,7 @@
  * Copyright (c) 2018      Research Organization for Information Science
  *                         and Technology (RIST).  All rights reserved.
  * Copyright (c) 2020      IBM Corporation.  All rights reserved.
+ * Copyright (c) 2020      Cisco Systems, Inc.  All rights reserved
  * $COPYRIGHT$
  *
  * Additional copyrights may follow
@@ -30,7 +31,7 @@
 #include "src/pmix/pmix-internal.h"
 #include "src/util/argv.h"
 
-#include "src/prted/pmix/pmix_server_internal.h"
+#include "src/prrted/pmix/pmix_server_internal.h"
 #include "src/runtime/prrte_data_server.h"
 #include "src/runtime/prrte_globals.h"
 #include "src/runtime/prrte_wait.h"
@@ -739,7 +740,7 @@ void prrte_state_base_track_procs(int fd, short argc, void *cbdata)
          * gone, then terminate ourselves IF no local procs
          * remain (might be some from another job)
          */
-        if (prrte_prteds_term_ordered &&
+        if (prrte_prrteds_term_ordered &&
             0 == prrte_routed.num_routes()) {
             for (i=0; i < prrte_local_children->size; i++) {
                 if (NULL != (pdata = (prrte_proc_t*)prrte_pointer_array_get_item(prrte_local_children, i)) &&

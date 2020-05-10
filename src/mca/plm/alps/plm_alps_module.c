@@ -10,7 +10,7 @@
  *                         University of Stuttgart.  All rights reserved.
  * Copyright (c) 2004-2005 The Regents of the University of California.
  *                         All rights reserved.
- * Copyright (c) 2006-2011 Cisco Systems, Inc.  All rights reserved.
+ * Copyright (c) 2006-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2007-2015 Los Alamos National Security, LLC.  All rights
  *                         reserved.
  * Copyright (c) 2014-2020 Intel, Inc.  All rights reserved.
@@ -54,7 +54,7 @@
 #endif
 
 #include "src/mca/base/base.h"
-#include "src/mca/prteinstalldirs/prteinstalldirs.h"
+#include "src/mca/prrteinstalldirs/prrteinstalldirs.h"
 #include "src/util/argv.h"
 #include "src/util/output.h"
 #include "src/util/prrte_environ.h"
@@ -98,9 +98,9 @@ prrte_plm_base_module_t prrte_plm_alps_module = {
     prrte_plm_base_set_hnp_name,
     plm_alps_launch_job,
     NULL,
-    prrte_plm_base_prted_terminate_job,
+    prrte_plm_base_prrted_terminate_job,
     plm_alps_terminate_orteds,
-    prrte_plm_base_prted_kill_local_procs,
+    prrte_plm_base_prrted_kill_local_procs,
     plm_alps_signal_job,
     plm_alps_finalize
 };
@@ -343,10 +343,10 @@ static void launch_daemons(int fd, short args, void *cbdata)
      */
 
     /* add the daemon command (as specified by user) */
-    prrte_plm_base_setup_prted_cmd(&argc, &argv);
+    prrte_plm_base_setup_prrted_cmd(&argc, &argv);
 
     /* Add basic orted command line options, including debug flags */
-    prrte_plm_base_prted_append_basic_args(&argc, &argv,
+    prrte_plm_base_prrted_append_basic_args(&argc, &argv,
                                            NULL,
                                            &proc_vpid_index);
 
@@ -477,7 +477,7 @@ static int plm_alps_terminate_orteds(void)
     }
 
     /* now tell them to die */
-    if (PRRTE_SUCCESS != (rc = prrte_plm_base_prted_exit(PRRTE_DAEMON_EXIT_CMD))) {
+    if (PRRTE_SUCCESS != (rc = prrte_plm_base_prrted_exit(PRRTE_DAEMON_EXIT_CMD))) {
         PRRTE_ERROR_LOG(rc);
     }
 

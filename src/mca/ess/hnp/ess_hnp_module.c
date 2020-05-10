@@ -11,7 +11,7 @@
  * Copyright (c) 2004-2005 The Regents of the University of California.
  *                         All rights reserved.
  * Copyright (c) 2010-2011 Oak Ridge National Labs.  All rights reserved.
- * Copyright (c) 2011-2014 Cisco Systems, Inc.  All rights reserved.
+ * Copyright (c) 2011-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2011-2017 Los Alamos National Security, LLC.  All rights
  *                         reserved.
  * Copyright (c) 2013-2020 Intel, Inc.  All rights reserved.
@@ -56,7 +56,7 @@
 #include "src/hwloc/hwloc-internal.h"
 
 #include "src/mca/oob/base/base.h"
-#include "src/mca/prtereachable/base/base.h"
+#include "src/mca/prrtereachable/base/base.h"
 #include "src/mca/rml/base/base.h"
 #include "src/mca/rml/rml_types.h"
 #include "src/mca/routed/base/base.h"
@@ -74,7 +74,7 @@
 #include "src/mca/state/base/base.h"
 #include "src/mca/state/state.h"
 
-#include "src/prted/pmix/pmix_server.h"
+#include "src/prrted/pmix/pmix_server.h"
 
 #include "src/util/show_help.h"
 #include "src/util/proc_info.h"
@@ -313,14 +313,14 @@ static int rte_init(int argc, char **argv)
         error = "prrte_routed_base_select";
         goto error;
     }
-    if (PRRTE_SUCCESS != (ret = prrte_mca_base_framework_open(&prrte_prtereachable_base_framework, 0))) {
+    if (PRRTE_SUCCESS != (ret = prrte_mca_base_framework_open(&prrte_prrtereachable_base_framework, 0))) {
         PRRTE_ERROR_LOG(ret);
-        error = "prrte_prtereachable_base_open";
+        error = "prrte_prrtereachable_base_open";
         goto error;
     }
     if (PRRTE_SUCCESS != (ret = prrte_reachable_base_select())) {
         PRRTE_ERROR_LOG(ret);
-        error = "prrte_prtereachable_base_select";
+        error = "prrte_prrtereachable_base_select";
         goto error;
     }
     /*
@@ -659,7 +659,7 @@ static int rte_finalize(void)
     (void) prrte_mca_base_framework_close(&prrte_routed_base_framework);
     (void) prrte_mca_base_framework_close(&prrte_rml_base_framework);
     (void) prrte_mca_base_framework_close(&prrte_oob_base_framework);
-    (void) prrte_mca_base_framework_close(&prrte_prtereachable_base_framework);
+    (void) prrte_mca_base_framework_close(&prrte_prrtereachable_base_framework);
     (void) prrte_mca_base_framework_close(&prrte_errmgr_base_framework);
     (void) prrte_mca_base_framework_close(&prrte_state_base_framework);
 

@@ -14,6 +14,7 @@
  * Copyright (c) 2017-2020 Intel, Inc.  All rights reserved.
  * Copyright (c) 2017-2019 Research Organization for Information Science
  *                         and Technology (RIST).  All rights reserved.
+ * Copyright (c) 2017-2020 Cisco Systems, Inc.  All rights reserved.
  * $COPYRIGHT$
  *
  * Additional copyrights may follow
@@ -91,7 +92,7 @@ PRRTE_EXPORT void prrte_plm_base_daemon_topology(int status, prrte_process_name_
 PRRTE_EXPORT int prrte_plm_base_create_jobid(prrte_job_t *jdata);
 PRRTE_EXPORT int prrte_plm_base_set_hnp_name(void);
 PRRTE_EXPORT void prrte_plm_base_reset_job(prrte_job_t *jdata);
-PRRTE_EXPORT int prrte_plm_base_setup_prted_cmd(int *argc, char ***argv);
+PRRTE_EXPORT int prrte_plm_base_setup_prrted_cmd(int *argc, char ***argv);
 PRRTE_EXPORT void prrte_plm_base_check_all_complete(int fd, short args, void *cbdata);
 PRRTE_EXPORT int prrte_plm_base_setup_virtual_machine(prrte_job_t *jdata);
 PRRTE_EXPORT int prrte_plm_base_spawn_reponse(int32_t status, prrte_job_t *jdata);
@@ -99,10 +100,10 @@ PRRTE_EXPORT int prrte_plm_base_spawn_reponse(int32_t status, prrte_job_t *jdata
 /**
  * Utilities for plm components that use proxy daemons
  */
-PRRTE_EXPORT int prrte_plm_base_prted_exit(prrte_daemon_cmd_flag_t command);
-PRRTE_EXPORT int prrte_plm_base_prted_terminate_job(prrte_jobid_t jobid);
-PRRTE_EXPORT int prrte_plm_base_prted_kill_local_procs(prrte_pointer_array_t *procs);
-PRRTE_EXPORT int prrte_plm_base_prted_signal_local_procs(prrte_jobid_t job, int32_t signal);
+PRRTE_EXPORT int prrte_plm_base_prrted_exit(prrte_daemon_cmd_flag_t command);
+PRRTE_EXPORT int prrte_plm_base_prrted_terminate_job(prrte_jobid_t jobid);
+PRRTE_EXPORT int prrte_plm_base_prrted_kill_local_procs(prrte_pointer_array_t *procs);
+PRRTE_EXPORT int prrte_plm_base_prrted_signal_local_procs(prrte_jobid_t job, int32_t signal);
 
 /*
  * communications utilities
@@ -117,7 +118,7 @@ PRRTE_EXPORT void prrte_plm_base_recv(int status, prrte_process_name_t* sender,
 /**
  * Construct basic PRRTE Daemon command line arguments
  */
-PRRTE_EXPORT int prrte_plm_base_prted_append_basic_args(int *argc, char ***argv,
+PRRTE_EXPORT int prrte_plm_base_prrted_append_basic_args(int *argc, char ***argv,
                                                         char *ess_module,
                                                         int *proc_vpid_index);
 

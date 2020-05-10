@@ -62,7 +62,7 @@
 #include "src/util/if.h"
 #include "src/util/net.h"
 #include "src/class/prrte_hash_table.h"
-#include "src/mca/prtebacktrace/prtebacktrace.h"
+#include "src/mca/prrtebacktrace/prrtebacktrace.h"
 
 #include "src/mca/oob/tcp/oob_tcp.h"
 #include "src/mca/oob/tcp/oob_tcp_component.h"

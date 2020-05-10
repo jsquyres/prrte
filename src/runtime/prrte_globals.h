@@ -10,7 +10,7 @@
  * Copyright (c) 2004-2005 The Regents of the University of California.
  *                         All rights reserved.
  * Copyright (c) 2007-2010 Oracle and/or its affiliates.  All rights reserved.
- * Copyright (c) 2007-2017 Cisco Systems, Inc.  All rights reserved
+ * Copyright (c) 2007-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2011-2013 Los Alamos National Security, LLC.
  *                         All rights reserved.
  * Copyright (c) 2013-2020 Intel, Inc.  All rights reserved.
@@ -92,7 +92,7 @@ PRRTE_EXPORT extern prrte_process_name_t prrte_name_invalid;  /** instantiated i
 /* define a special name that point to my parent (aka the process that spawned me) */
 #define PRRTE_PROC_MY_PARENT     (&prrte_process_info.my_parent)
 
-/* define a special name that belongs to prte master */
+/* define a special name that belongs to prrte master */
 #define PRRTE_PROC_MY_HNP        (&prrte_process_info.my_hnp)
 
 PRRTE_EXPORT extern bool prrte_in_parallel_debugger;
@@ -464,8 +464,8 @@ PRRTE_EXPORT extern int prrte_use_hostname_alias;
 PRRTE_EXPORT extern int prrte_hostname_cutoff;
 
 /* debug flags */
-PRRTE_EXPORT extern int prted_debug_failure;
-PRRTE_EXPORT extern int prted_debug_failure_delay;
+PRRTE_EXPORT extern int prrted_debug_failure;
+PRRTE_EXPORT extern int prrted_debug_failure_delay;
 
 PRRTE_EXPORT extern bool prrte_never_launched;
 PRRTE_EXPORT extern bool prrte_devel_level_output;
@@ -485,14 +485,14 @@ PRRTE_EXPORT extern bool prrte_node_info_communicated;
 
 /* launch agents */
 PRRTE_EXPORT extern char *prrte_launch_agent;
-PRRTE_EXPORT extern char **prted_cmd_line;
+PRRTE_EXPORT extern char **prrted_cmd_line;
 PRRTE_EXPORT extern char **prrte_fork_agent;
 
 /* exit flags */
 PRRTE_EXPORT extern bool prrte_abnormal_term_ordered;
 PRRTE_EXPORT extern bool prrte_routing_is_enabled;
 PRRTE_EXPORT extern bool prrte_job_term_ordered;
-PRRTE_EXPORT extern bool prrte_prteds_term_ordered;
+PRRTE_EXPORT extern bool prrte_prrteds_term_ordered;
 PRRTE_EXPORT extern bool prrte_allowed_exit_without_sync;
 PRRTE_EXPORT extern int prrte_startup_timeout;
 

@@ -41,7 +41,7 @@
 #include "src/mca/mca.h"
 #include "src/mca/base/base.h"
 #include "src/mca/base/prrte_mca_base_component_repository.h"
-#include "src/mca/prtedl/base/base.h"
+#include "src/mca/prrtedl/base/base.h"
 #include "constants.h"
 #include "src/class/prrte_hash_table.h"
 #include "src/util/basename.h"
@@ -252,7 +252,7 @@ int prrte_mca_base_component_repository_init(void)
 #if PRRTE_HAVE_DL_SUPPORT
 
     /* Initialize the dl framework */
-    int ret = prrte_mca_base_framework_open(&prrte_prtedl_base_framework, 0);
+    int ret = prrte_mca_base_framework_open(&prrte_prrtedl_base_framework, 0);
     if (PRRTE_SUCCESS != ret) {
         prrte_output(0, "%s %d:%s failed -- process will likely abort (open the dl framework returned %d instead of PRRTE_SUCCESS)\n",
                     __FILE__, __LINE__, __func__, ret);
@@ -263,7 +263,7 @@ int prrte_mca_base_component_repository_init(void)
     PRRTE_CONSTRUCT(&prrte_mca_base_component_repository, prrte_hash_table_t);
     ret = prrte_hash_table_init (&prrte_mca_base_component_repository, 128);
     if (PRRTE_SUCCESS != ret) {
-        (void) prrte_mca_base_framework_close (&prrte_prtedl_base_framework);
+        (void) prrte_mca_base_framework_close (&prrte_prrtedl_base_framework);
         return ret;
     }
 
@@ -271,7 +271,7 @@ int prrte_mca_base_component_repository_init(void)
     if (PRRTE_SUCCESS != ret) {
         prrte_output(0, "ERROR ON REPO ADD");
         PRRTE_DESTRUCT(&prrte_mca_base_component_repository);
-        (void) prrte_mca_base_framework_close (&prrte_prtedl_base_framework);
+        (void) prrte_mca_base_framework_close (&prrte_prrtedl_base_framework);
         return ret;
     }
 #endif
@@ -565,7 +565,7 @@ void prrte_mca_base_component_repository_finalize(void)
                                                 node, &node);
     }
 
-    (void) prrte_mca_base_framework_close(&prrte_prtedl_base_framework);
+    (void) prrte_mca_base_framework_close(&prrte_prrtedl_base_framework);
     PRRTE_DESTRUCT(&prrte_mca_base_component_repository);
 #endif
 }

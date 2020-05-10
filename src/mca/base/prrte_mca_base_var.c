@@ -41,7 +41,7 @@
 #include <errno.h>
 
 #include "src/include/prrte_stdint.h"
-#include "src/mca/prteinstalldirs/prteinstalldirs.h"
+#include "src/mca/prrteinstalldirs/prrteinstalldirs.h"
 #include "src/util/os_path.h"
 #include "src/util/path.h"
 #include "src/util/show_help.h"

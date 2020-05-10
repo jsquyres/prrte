@@ -56,7 +56,7 @@
 
 #include "prrte_stdint.h"
 #include "types.h"
-#include "src/mca/prtebacktrace/prtebacktrace.h"
+#include "src/mca/prrtebacktrace/prrtebacktrace.h"
 #include "src/util/output.h"
 #include "src/util/net.h"
 #include "src/util/error.h"

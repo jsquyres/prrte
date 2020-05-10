@@ -46,7 +46,7 @@
 #include <signal.h>
 
 #include "src/util/stacktrace.h"
-#include "src/mca/prtebacktrace/prtebacktrace.h"
+#include "src/mca/prrtebacktrace/prrtebacktrace.h"
 #include "constants.h"
 #include "src/util/output.h"
 #include "src/util/show_help.h"

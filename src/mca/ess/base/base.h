@@ -9,7 +9,7 @@
  *                         University of Stuttgart.  All rights reserved.
  * Copyright (c) 2004-2005 The Regents of the University of California.
  *                         All rights reserved.
- * Copyright (c) 2011-2012 Cisco Systems, Inc.  All rights reserved.
+ * Copyright (c) 2011-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2012      Oak Ridge National Labs.  All rights reserved.
  * Copyright (c) 2013      Los Alamos National Security, LLC.  All rights reserved.
  * Copyright (c) 2013-2020 Intel, Inc.  All rights reserved.
@@ -65,8 +65,8 @@ PRRTE_EXPORT int prrte_ess_env_get(void);
 
 PRRTE_EXPORT int prrte_ess_base_std_prolog(void);
 
-PRRTE_EXPORT int prrte_ess_base_prted_setup(void);
-PRRTE_EXPORT int prrte_ess_base_prted_finalize(void);
+PRRTE_EXPORT int prrte_ess_base_prrted_setup(void);
+PRRTE_EXPORT int prrte_ess_base_prrted_finalize(void);
 
 PRRTE_EXPORT int prrte_ess_base_setup_signals(char *signals);
 

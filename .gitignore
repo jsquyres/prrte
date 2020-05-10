@@ -133,7 +133,7 @@ src/sys/powerpc/atomic-32-64.s
 
 src/mca/base/mca_base_parse_paramfile_lex.c
 
-src/mca/prteinstalldirs/config/install_dirs.h
+src/mca/prrteinstalldirs/config/install_dirs.h
 
 src/include/prrte_config.h
 src/include/prrte_config.h.in
@@ -145,9 +145,9 @@ src/mca/rmaps/rank_file/rmaps_rank_file_lex.c
 src/mca/rmaps/rank_file/rankfile_lex.c
 
 src/tools/prun/prun
-src/tools/prte_info/prte_info
-src/tools/prted/prted
-src/tools/prte/prte
+src/tools/prrte_info/prrte_info
+src/tools/prrted/prrted
+src/tools/prrte/prrte
 src/tools/pcc/pcc
 src/tools/pcc/pcc-wrapper-data.txt
 src/tools/pterm/pterm

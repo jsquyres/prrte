@@ -11,7 +11,7 @@
  *                         All rights reserved.
  * Copyright (c) 2007-2010 Oracle and/or its affiliates.  All rights reserved.
  * Copyright (c) 2007      Evergrid, Inc. All rights reserved.
- * Copyright (c) 2008-2017 Cisco Systems, Inc.  All rights reserved
+ * Copyright (c) 2008-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2010      IBM Corporation.  All rights reserved.
  * Copyright (c) 2011-2013 Los Alamos National Security, LLC.  All rights
  *                         reserved.
@@ -135,7 +135,7 @@
 #include "src/mca/odls/base/base.h"
 #include "src/mca/odls/base/odls_private.h"
 #include "src/mca/odls/default/odls_default.h"
-#include "src/prted/pmix/pmix_server.h"
+#include "src/prrted/pmix/pmix_server.h"
 
 /*
  * Module functions (function pointers used in a struct)
@@ -389,7 +389,7 @@ static int do_child(prrte_odls_spawn_caddy_t *cd, int write_fd)
             send_error_show_help(write_fd, 1,
                                  "help-prun.txt",
                                  "prun:wdir-not-found",
-                                 "prted",
+                                 "prrted",
                                  cd->wdir,
                                  prrte_process_info.nodename,
                                  (NULL == cd->child) ? 0 : cd->child->app_rank);
@@ -405,7 +405,7 @@ static int do_child(prrte_odls_spawn_caddy_t *cd, int write_fd)
             send_error_show_help(write_fd, 1,
                                  "help-prun.txt",
                                  "prun:stop-on-exec",
-                                 "prted",
+                                 "prrted",
                                  strerror(errno),
                                  prrte_process_info.nodename,
                                  (NULL == cd->child) ? 0 : cd->child->app_rank);

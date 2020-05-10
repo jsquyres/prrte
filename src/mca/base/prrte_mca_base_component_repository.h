@@ -40,8 +40,8 @@
 
 #include "prrte_config.h"
 
-#include "src/mca/prtedl/prtedl.h"
-#include "src/mca/prtedl/base/base.h"
+#include "src/mca/prrtedl/prrtedl.h"
+#include "src/mca/prrtedl/base/base.h"
 
 BEGIN_C_DECLS
 struct prrte_mca_base_component_repository_item_t {

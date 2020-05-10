@@ -67,8 +67,8 @@
 # The following vars can be set from outside and will affect script behave:
 # prefix,rpmbuild_options,configure_options,build_srpm,build_single,build_multiple,rpmtopdir
 #
-specfile="prte.spec"
-prefix=${prefix:-"/opt/prte"}
+specfile="prrte.spec"
+prefix=${prefix:-"/opt/prrte"}
 rpmbuild_options=${rpmbuild_options:-"--define 'mflags -j4' --define '_source_filedigest_algorithm md5'  --define '_binary_filedigest_algorithm md5'"}
 configure_options=${configure_options:-""}
 unpack_spec=0
@@ -137,8 +137,8 @@ usage="Usage: $0 [-b][-o][-m][-d][-u][-s][-h] [-n name][-f lf_location][-t tm_lo
   -d         build with Debugging support
              {default: without debugging support}
 
-  -s         try to unpack prte.spec file from tarball
-             {default: search for prte.spec in current directory}
+  -s         try to unpack prrte.spec file from tarball
+             {default: search for prrte.spec in current directory}
 
   -c parameter
              add custom configure parameter
@@ -359,7 +359,7 @@ fi
 # from the specfile
 #
 
-specdest="$rpmtopdir/SPECS/prte-$version.spec"
+specdest="$rpmtopdir/SPECS/prrte-$version.spec"
 sed -e 's/\$VERSION/'$version'/g' \
     -e 's/\$EXTENSION/'$extension'/g' \
     $specfile > "$specdest"

@@ -24,7 +24,7 @@
 #include "prrte_config.h"
 #include "constants.h"
 
-#include "src/mca/prteinstalldirs/prteinstalldirs.h"
+#include "src/mca/prrteinstalldirs/prrteinstalldirs.h"
 #include "src/util/output.h"
 #include "src/util/show_help.h"
 #include "src/mca/errmgr/errmgr.h"

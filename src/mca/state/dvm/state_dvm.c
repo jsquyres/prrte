@@ -3,6 +3,7 @@
  * Copyright (c) 2018-2019 Research Organization for Information Science
  *                         and Technology (RIST).  All rights reserved.
  * Copyright (c) 2020      IBM Corporation.  All rights reserved.
+ * Copyright (c) 2020      Cisco Systems, Inc.  All rights reserved
  * $COPYRIGHT$
  *
  * Additional copyrights may follow
@@ -23,7 +24,7 @@
 #include "src/util/os_dirpath.h"
 #include "src/util/proc_info.h"
 #include "src/pmix/pmix-internal.h"
-#include "src/prted/pmix/pmix_server.h"
+#include "src/prrted/pmix/pmix_server.h"
 
 #include "src/mca/errmgr/errmgr.h"
 #include "src/mca/filem/filem.h"

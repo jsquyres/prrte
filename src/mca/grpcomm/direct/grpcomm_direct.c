@@ -2,7 +2,7 @@
 /*
  * Copyright (c) 2007      The Trustees of Indiana University.
  *                         All rights reserved.
- * Copyright (c) 2011      Cisco Systems, Inc.  All rights reserved.
+ * Copyright (c) 2011-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2011-2013 Los Alamos National Security, LLC. All
  *                         rights reserved.
  * Copyright (c) 2014-2020 Intel, Inc.  All rights reserved.
@@ -24,7 +24,7 @@
 #include "src/dss/dss.h"
 #include "src/class/prrte_list.h"
 #include "src/pmix/pmix-internal.h"
-#include "src/mca/prtecompress/prtecompress.h"
+#include "src/mca/prrtecompress/prrtecompress.h"
 
 #include "src/mca/errmgr/errmgr.h"
 #include "src/mca/rml/base/base.h"
@@ -433,7 +433,7 @@ static void xcast_recv(int status, prrte_process_name_t* sender,
              */
             jdata = prrte_get_job_data_object(nm->name.jobid);
             if (NULL == (rec = (prrte_proc_t*)prrte_pointer_array_get_item(jdata->procs, nm->name.vpid))) {
-                if (!prrte_abnormal_term_ordered && !prrte_prteds_term_ordered) {
+                if (!prrte_abnormal_term_ordered && !prrte_prrteds_term_ordered) {
                     prrte_output(0, "%s grpcomm:direct:send_relay proc %s not found - cannot relay",
                                 PRRTE_NAME_PRINT(PRRTE_PROC_MY_NAME), PRRTE_NAME_PRINT(&nm->name));
                 }
@@ -445,7 +445,7 @@ static void xcast_recv(int status, prrte_process_name_t* sender,
             if ((PRRTE_PROC_STATE_RUNNING < rec->state &&
                 PRRTE_PROC_STATE_CALLED_ABORT != rec->state) ||
                 !PRRTE_FLAG_TEST(rec, PRRTE_PROC_FLAG_ALIVE)) {
-                if (!prrte_abnormal_term_ordered && !prrte_prteds_term_ordered) {
+                if (!prrte_abnormal_term_ordered && !prrte_prrteds_term_ordered) {
                     prrte_output(0, "%s grpcomm:direct:send_relay proc %s not running - cannot relay: %s ",
                                 PRRTE_NAME_PRINT(PRRTE_PROC_MY_NAME), PRRTE_NAME_PRINT(&nm->name),
                                 PRRTE_FLAG_TEST(rec, PRRTE_PROC_FLAG_ALIVE) ? prrte_proc_state_to_str(rec->state) : "NOT ALIVE");

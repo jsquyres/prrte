@@ -9,7 +9,7 @@
 #                         University of Stuttgart.  All rights reserved.
 # Copyright (c) 2004-2005 The Regents of the University of California.
 #                         All rights reserved.
-# Copyright (c) 2009-2010 Cisco Systems, Inc.  All rights reserved.
+# Copyright (c) 2009-2020 Cisco Systems, Inc.  All rights reserved.
 # Copyright (c) 2015-2019 Intel, Inc.  All rights reserved.
 # $COPYRIGHT$
 #
@@ -28,6 +28,6 @@ libmca_plm_la_SOURCES += \
         base/plm_base_receive.c \
         base/plm_base_launch_support.c \
         base/plm_base_jobid.c \
-        base/plm_base_prted_cmds.c
+        base/plm_base_prrted_cmds.c
 
 dist_prrtedata_DATA += base/help-plm-base.txt

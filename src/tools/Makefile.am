@@ -10,7 +10,7 @@
 #                         University of Stuttgart.  All rights reserved.
 # Copyright (c) 2004-2005 The Regents of the University of California.
 #                         All rights reserved.
-# Copyright (c) 2006-2008 Cisco Systems, Inc.  All rights reserved.
+# Copyright (c) 2006-2020 Cisco Systems, Inc.  All rights reserved.
 # Copyright (c) 2011-2013 Los Alamos National Security, LLC.  All rights
 #                         reserved.
 # Copyright (c) 2014-2020 Intel, Inc.  All rights reserved.
@@ -25,17 +25,17 @@
 # src/Makefile.am
 
 SUBDIRS += \
-	tools/prted \
+	tools/prrted \
 	tools/prun \
 	tools/pcc \
-    tools/prte_info \
-    tools/prte \
+    tools/prrte_info \
+    tools/prrte \
     tools/pterm
 
 DIST_SUBDIRS += \
-	tools/prted \
+	tools/prrted \
 	tools/prun \
 	tools/pcc \
-    tools/prte_info \
-    tools/prte \
+    tools/prrte_info \
+    tools/prrte \
     tools/pterm

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2011 The Trustees of Indiana University.
  *                         All rights reserved.
- * Copyright (c) 2010      Cisco Systems, Inc.  All rights reserved.
+ * Copyright (c) 2010-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2010-2017 Oak Ridge National Labs.  All rights reserved.
  * Copyright (c) 2004-2011 The University of Tennessee and The University
  *                         of Tennessee Research Foundation.  All rights
@@ -271,7 +271,7 @@ static void proc_errors(int fd, short args, void *cbdata)
         --prrte_process_info.num_daemons;
         /* if we have ordered orteds to terminate or abort
          * is in progress, record it */
-        if (prrte_prteds_term_ordered || prrte_abnormal_term_ordered) {
+        if (prrte_prrteds_term_ordered || prrte_abnormal_term_ordered) {
             PRRTE_OUTPUT_VERBOSE((5, prrte_errmgr_base_framework.framework_output,
                                  "%s Comm failure: daemons terminating - recording daemon %s as gone",
                                  PRRTE_NAME_PRINT(PRRTE_PROC_MY_NAME), PRRTE_NAME_PRINT(proc)));
@@ -342,7 +342,7 @@ static void proc_errors(int fd, short args, void *cbdata)
     /* if we were ordered to terminate, mark this proc as dead and see if
      * any of our routes or local  children remain alive - if not, then
      * terminate ourselves. */
-    if (prrte_prteds_term_ordered) {
+    if (prrte_prrteds_term_ordered) {
         for (i=0; i < prrte_local_children->size; i++) {
             if (NULL != (proct = (prrte_proc_t*)prrte_pointer_array_get_item(prrte_local_children, i))) {
                 if (PRRTE_FLAG_TEST(proct, PRRTE_PROC_FLAG_ALIVE)) {

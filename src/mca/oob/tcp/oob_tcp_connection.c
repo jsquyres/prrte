@@ -11,7 +11,7 @@
  *                         All rights reserved.
  * Copyright (c) 2006-2013 Los Alamos National Security, LLC.
  *                         All rights reserved.
- * Copyright (c) 2009-2018 Cisco Systems, Inc.  All rights reserved
+ * Copyright (c) 2009-2020 Cisco Systems, Inc.  All rights reserved
  * Copyright (c) 2011      Oak Ridge National Labs.  All rights reserved.
  * Copyright (c) 2013-2020 Intel, Inc.  All rights reserved.
  * Copyright (c) 2014-2019 Research Organization for Information Science
@@ -56,7 +56,7 @@
 
 #include "types.h"
 #include "prrte_stdint.h"
-#include "src/mca/prtebacktrace/prtebacktrace.h"
+#include "src/mca/prrtebacktrace/prrtebacktrace.h"
 #include "src/mca/base/prrte_mca_base_var.h"
 #include "src/util/output.h"
 #include "src/util/net.h"
@@ -75,8 +75,8 @@
 #include "src/mca/ess/ess.h"
 #include "src/mca/routed/routed.h"
 #include "src/runtime/prrte_wait.h"
-#include "src/mca/prteif/prteif.h"
-#include "src/mca/prtereachable/base/base.h"
+#include "src/mca/prrteif/prrteif.h"
+#include "src/mca/prrtereachable/base/base.h"
 
 #include "oob_tcp.h"
 #include "src/mca/oob/tcp/oob_tcp_component.h"
@@ -1138,7 +1138,7 @@ void prrte_oob_tcp_peer_close(prrte_oob_tcp_peer_t *peer)
      */
     PRRTE_ACTIVATE_TCP_CMP_OP(peer, prrte_oob_tcp_component_lost_connection);
 
-    if (prrte_prteds_term_ordered || prrte_finalizing || prrte_abnormal_term_ordered) {
+    if (prrte_prrteds_term_ordered || prrte_finalizing || prrte_abnormal_term_ordered) {
         /* nothing more to do */
         return;
     }
